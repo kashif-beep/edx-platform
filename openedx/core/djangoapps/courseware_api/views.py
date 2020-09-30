@@ -30,7 +30,7 @@ from lms.djangoapps.courseware.courses import check_course_access, get_course_by
 from lms.djangoapps.courseware.masquerade import setup_masquerade
 from lms.djangoapps.courseware.module_render import get_module_by_usage_id
 from lms.djangoapps.courseware.tabs import get_course_tab_list
-from lms.djangoapps.courseware.toggles import REDIRECT_TO_COURSEWARE_MICROFRONTEND
+from lms.djangoapps.courseware.toggles import REDIRECT_TO_COURSEWARE_MICROFRONTEND, courseware_mfe_first_celebration_is_active
 from lms.djangoapps.courseware.utils import can_show_verified_upgrade
 from lms.djangoapps.courseware.utils import verified_upgrade_deadline_link
 from openedx.core.lib.api.view_utils import DeveloperErrorViewMixin
@@ -205,7 +205,8 @@ class CoursewareMeta:
         Returns a list of celebrations that should be performed.
         """
         return {
-            'first_section': CourseEnrollmentCelebration.should_celebrate_first_section(self.enrollment_object),
+            'first_section': (CourseEnrollmentCelebration.should_celebrate_first_section(self.enrollment_object)
+                              if courseware_mfe_first_celebration_is_active(self.course_key) else False),
         }
 
 

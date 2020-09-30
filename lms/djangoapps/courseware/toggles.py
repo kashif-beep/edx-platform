@@ -38,3 +38,32 @@ REDIRECT_TO_COURSEWARE_MICROFRONTEND = ExperimentWaffleFlag(
 COURSEWARE_MICROFRONTEND_COURSE_TEAM_PREVIEW = CourseWaffleFlag(
     WAFFLE_FLAG_NAMESPACE, 'microfrontend_course_team_preview', __name__
 )
+
+COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES = ExperimentWaffleFlag(WAFFLE_FLAG_NAMESPACE, 'mfe_progress_milestones', __name__)
+
+COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES_FIRST_CELEBRATION = CourseWaffleFlag(WAFFLE_FLAG_NAMESPACE, 'mfe_progress_milestones_first_celebration', __name__)
+
+COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES_DISCUSSION = CourseWaffleFlag(WAFFLE_FLAG_NAMESPACE, 'mfe_progress_milestones_discussion', __name__)
+
+COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES_STREAKS = CourseWaffleFlag(WAFFLE_FLAG_NAMESPACE, 'mfe_progress_milestones_streaks', __name__)
+
+
+def courseware_mfe_discussion_is_active(course_key):
+    return (
+        COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES.is_enabled(course_key) and
+        COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES_DISCUSSION.is_enabled(course_key)
+    )
+
+
+def courseware_mfe_first_celebration_is_active(course_key):
+    return (
+        COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES.is_enabled(course_key) and
+        COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES_FIRST_CELEBRATION.is_enabled(course_key)
+    )
+
+
+def courseware_mfe_streaks_is_active(course_key):
+    return (
+        COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES.is_enabled(course_key) and
+        COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES_STREAKS.is_enabled(course_key)
+    )
