@@ -23,6 +23,10 @@ for path in $(find "${TARGET}/djangoapps/" -name '*.py' | grep -v migrations); d
         # We've gone to prod with this excluded, and it hasn't been a problem.
         continue
     fi
+    if [[ "$path" == "cms/djangoapps/contentstore/management/commands/import.py" ]]; then
+        # Also skip this file because its name is problematic for the sys path hack.
+        continue
+    fi
     new_path=$(echo "$path" | sed "s#${TARGET}/djangoapps/#sys_path_hacks/${TARGET}/#")
     python_path=$(echo "$path" | sed "s#/#.#g" | sed "s#.py##" | sed "s#.__init__##")
     old_python_path=$(echo "$python_path" | sed "s#${TARGET}.djangoapps.##")
