@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('change_date', models.DateTimeField(auto_now_add=True, verbose_name='Change date')),
                 ('enabled', models.BooleanField(default=False, verbose_name='Enabled')),
-                ('csv_file', models.FileField(help_text='It expect that the data will be provided in a csv file format with                     first row being the header and columns will be as follows:                     username, email, new_email', upload_to='', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['csv'])])),
+                ('csv_file', models.FileField(help_text='It expect that the data will be provided in a csv file format with                     first row being the header and columns will be as follows:                     username, current_email, desired_email', upload_to='', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['csv'])])),
                 ('changed_by', models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL, verbose_name='Changed by')),
             ],
             options={

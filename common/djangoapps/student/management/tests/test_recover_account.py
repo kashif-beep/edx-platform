@@ -32,7 +32,7 @@ class RecoverAccountTests(TestCase):
 
     def _write_test_csv(self, csv, lines):
         """Write a test csv file with the lines provided"""
-        csv.write(b"username,email,new_email\n")
+        csv.write(b"username,current_email,desired_email\n")
         for line in lines:
             csv.write(six.b(line))
         csv.seek(0)
@@ -109,7 +109,7 @@ class RecoverAccountTests(TestCase):
 
     def test_account_recovery_from_config_model(self):
         """Verify learners account recovery using config model."""
-        lines = 'username,email,new_email\namy,amy@edx.com,amy@newemail.com\n'
+        lines = 'username,current_email,desired_email\namy,amy@edx.com,amy@newemail.com\n'
 
         csv_file = SimpleUploadedFile(name='test.csv', content=lines.encode('utf-8'), content_type='text/csv')
         AccountRecoveryConfiguration.objects.create(enabled=True, csv_file=csv_file)
