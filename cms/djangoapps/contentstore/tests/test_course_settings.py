@@ -511,7 +511,7 @@ class CourseGradingTest(CourseTestCase):
             self.assertDictEqual(grader, subgrader, str(i) + "th graders not equal")
 
     @mock.patch('track.event_transaction_utils.uuid4')
-    @mock.patch('models.settings.course_grading.tracker')
+    @mock.patch('cms.djangoapps.models.settings.course_grading.tracker')
     @mock.patch('cms.djangoapps.contentstore.signals.signals.GRADING_POLICY_CHANGED.send')
     @ddt.data(ModuleStoreEnum.Type.mongo, ModuleStoreEnum.Type.split)
     def test_update_from_json(self, store, send_signal, tracker, uuid):
@@ -648,7 +648,7 @@ class CourseGradingTest(CourseTestCase):
         self.assertTrue(result)
 
     @mock.patch('track.event_transaction_utils.uuid4')
-    @mock.patch('models.settings.course_grading.tracker')
+    @mock.patch('cms.djangoapps.models.settings.course_grading.tracker')
     @mock.patch('cms.djangoapps.contentstore.signals.signals.GRADING_POLICY_CHANGED.send')
     def test_update_grader_from_json(self, send_signal, tracker, uuid):
         uuid.return_value = 'mockUUID'
@@ -693,7 +693,7 @@ class CourseGradingTest(CourseTestCase):
         ], any_order=True)
 
     @mock.patch('track.event_transaction_utils.uuid4')
-    @mock.patch('models.settings.course_grading.tracker')
+    @mock.patch('cms.djangoapps.models.settings.course_grading.tracker')
     def test_update_cutoffs_from_json(self, tracker, uuid):
         uuid.return_value = 'mockUUID'
         test_grader = CourseGradingModel.fetch(self.course.id)
@@ -754,7 +754,7 @@ class CourseGradingTest(CourseTestCase):
         self.assertEqual(None, altered_grader.grace_period, "Delete grace period")
 
     @mock.patch('track.event_transaction_utils.uuid4')
-    @mock.patch('models.settings.course_grading.tracker')
+    @mock.patch('cms.djangoapps.models.settings.course_grading.tracker')
     @mock.patch('cms.djangoapps.contentstore.signals.signals.GRADING_POLICY_CHANGED.send')
     def test_update_section_grader_type(self, send_signal, tracker, uuid):
         uuid.return_value = 'mockUUID'
